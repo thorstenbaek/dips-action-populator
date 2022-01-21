@@ -4,7 +4,7 @@ import { QueryBuilder } from "./models/QueryBuilder";
 import { ResultSet } from "./models/ResultSet";
 import Instruction from "./models/Instruction";
 import ActionFactory from './factories/ActionFactory';
-
+import ActionRepository from './repositories/ActionRepository';
 
 export async function poll(fromDate:string): Promise<null | string> {
     console.log(`Polling for new instructions after ${fromDate}`);
@@ -37,14 +37,25 @@ export async function poll(fromDate:string): Promise<null | string> {
                     })
                     if (instructions.length > 0) {
                         const actionFactory = new ActionFactory();
+                        const actionRepository = new ActionRepository();
 
                         instructions.map(i => {
                             var actions = actionFactory.createActions(i);
-                            console.log(actions);
+                            var index = 0;
+                            actions.map(async a => {
+                                console.log(`Saving action ${index} of ${actions.length}...`);
+
+                                const success = await actionRepository.push(a);
+                                if (success)
+                                    console.log(`Successfully saved action ${index}.`);
+                                else
+                                console.error(`Failed to save action ${index}`);
+                                
+                                index++;
+                            });
                         });
                         
-                        console.log(`${instructions.length} instructions ready for action generation`);
-                        console.log(instructions[0]);
+                        
                         // const latestVaccine = vaccines[0];
                         // latestDate = latestVaccine.committed;
                         // const remins = vaccineToRemin(vaccines);

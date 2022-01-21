@@ -2,27 +2,47 @@
  * @jest-environment jsdom
  */
 
-import '@testing-library/jest-dom'
+import Instruction from '../models/Instruction';
 import ActionFactory from '../factories/ActionFactory';
 
-beforeAll(() => {        
-});
-
-afterAll((() => {
-  
-}))
-
 describe("actionFactory.createActions", () => {
-    it("null argument returns zero actions", () => {
-        const actionFactory: ActionFactory = new ActionFactory();
-        actionFactory.createActions(null);
-        expect(window.fetch).toHaveBeenCalledWith("http://localhost:8080/price.json", {method: "GET"});
-    });
+    const someFolderId: string = "some folder id";
+    const actionFactory: ActionFactory = new ActionFactory();
 
-    /*it("sets the price when API returned", async () => {
-        fetchPrice();
-        await tick();
-        await tick();
-        expect(get(price)).toEqual("99.99");
-    });*/
+    it("null argument returns zero actions", () => {
+        
+        var actions = actionFactory.createActions(null);
+        expect(actions.length).toEqual(0);
+    }); 
+    
+    const instruction: Instruction = {
+        folderId: someFolderId,
+        drug: "drug",
+        dose: 123,
+        doseUnits: "units",
+        frequency: 1,
+        frequencyUnits: "PerDay",
+        administrationType: "Per/os",
+        clinicalIndication: "",
+        startTime: new Date(2022, 1, 1, 12),
+        endTime: new Date(2022, 1, 15, 12),
+    }
+
+    it("instruction with start- and endTime 14 days - frequence once per day - returns 14 actions", () => {
+        var actions = actionFactory.createActions(instruction);
+        expect(actions.length).toEqual(14);    
+    })
+
+    it("instruction with folderId - returns actions with same folderId", () => {
+        var actions = actionFactory.createActions(instruction);
+        actions.map(a => {
+            expect(a.folderId).toEqual(someFolderId) })
+    })
+
+    it("instruction without endTime - returns actions for 7 days", () => {
+        instruction.endTime = null;
+
+        var actions = actionFactory.createActions(instruction);
+        expect(actions.length).toEqual(7);        
+    })
 });
