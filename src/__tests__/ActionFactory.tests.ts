@@ -7,6 +7,7 @@ import ActionFactory from '../factories/ActionFactory';
 
 describe("actionFactory.createActions", () => {
     const someFolderId: string = "some folder id";
+    const somePatientId: number = 123456;
     const actionFactory: ActionFactory = new ActionFactory();
 
     it("null argument returns zero actions", () => {
@@ -17,6 +18,7 @@ describe("actionFactory.createActions", () => {
     
     const instruction: Instruction = {
         folderId: someFolderId,
+        patient: somePatientId,
         drug: "drug",
         dose: 123,
         doseUnits: "units",
@@ -26,6 +28,7 @@ describe("actionFactory.createActions", () => {
         clinicalIndication: "",
         startTime: new Date(2022, 1, 1, 12),
         endTime: new Date(2022, 1, 15, 12),
+        committed: "2022/1/1"
     }
 
     it("instruction with start- and endTime 14 days - frequence once per day - returns 14 actions", () => {

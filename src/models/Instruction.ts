@@ -1,5 +1,6 @@
 export default interface Instruction {
     folderId: string;
+    patient: number;
     drug: string;
     dose: number;
     doseUnits: string;
@@ -9,4 +10,5 @@ export default interface Instruction {
     endTime: Date;    
     administrationType: string;
     clinicalIndication: string;
+    committed: string;
 }

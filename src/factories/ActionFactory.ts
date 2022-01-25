@@ -18,6 +18,7 @@ export default class ActionFactory {
             while (currentTime < endTime) {
                 var action = {
                     folderId: instruction.folderId,
+                    patient: instruction.patient,
                     time: null,
                     planned: currentTime,
                     drug: instruction.drug,
@@ -26,7 +27,7 @@ export default class ActionFactory {
                     comment: null
                 }
 
-                actions.push(action)
+                actions.push(action)                                
                 currentTime = new Date(currentTime.getTime() + interval * 60 * 60 * 1000);
             }
         }
