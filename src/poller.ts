@@ -118,6 +118,9 @@ function cellToString(c: any): string | undefined {
 }
 
 function cellToDate(c: any): Date {
+    if (c == null) {
+        return null;
+    }
     if (typeof c == "string") {
         return new Date(Date.parse(c));
     } else if (typeof c == "object") {
