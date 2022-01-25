@@ -7,7 +7,7 @@ export default interface Instruction {
     frequency: number;
     frequencyUnits: string;
     startTime: Date;
-    endTime: Date;    
+    endTime?: Date;    
     administrationType: string;
     clinicalIndication: string;
     committed: string;

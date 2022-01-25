@@ -1,12 +1,12 @@
 import Action from "../models/Action";
-import SmartEhrClient from "./SmartEhrClient";
+import {ISmartEhrClient} from "./SmartEhrClient";
 import { v4 as uuidv4 } from 'uuid';
 
 export default class ActionRepository {
 
-    smartEhrClient: SmartEhrClient;
+    smartEhrClient: ISmartEhrClient;
 
-    constructor(smartEhrClient: SmartEhrClient) {
+    constructor(smartEhrClient: ISmartEhrClient) {
         this.smartEhrClient = smartEhrClient;
     }
     
@@ -198,21 +198,21 @@ export default class ActionRepository {
                 },
                 "ism_transition": {
                     "current_state": {
-                        "value": "completed",
+                        "value": "scheduled",
                         "defining_code": {
                             "terminology_id": {
                                 "value": "openehr"
                             },
-                            "code_string": "532"
+                            "code_string": "529"
                         }
                     },
                     "careflow_step": {
-                        "value": "Medisinering fullført",
+                        "value": "Legemiddel autorisert",
                         "defining_code": {
                             "terminology_id": {
                                 "value": "local"
                             },
-                            "code_string": "at0007"
+                            "code_string": "at0153"
                         }
                     }
                 }

@@ -1,11 +1,19 @@
 import Action from "../models/Action"
 import ActionRepository from "../repositories/ActionRepository"
-import SmartEhrClient from "../repositories/SmartEhrClient"
+import SmartEhrClient, { ISmartEhrClient } from "../repositories/SmartEhrClient"
+
+class SmartEhrClientMock implements ISmartEhrClient{
+    async SaveComposition(action: Action, composition: string): Promise<boolean> {
+        console.log("mocking save composition.....");
+        
+        return true;
+    }
+}
 
 describe("ActionRepository.pushAction", () => {
 
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-    const actionRepository = new ActionRepository(new SmartEhrClient())
+    const actionRepository = new ActionRepository(new SmartEhrClientMock())
 
     it("push empty", async () => {
         
