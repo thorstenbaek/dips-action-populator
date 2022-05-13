@@ -4,6 +4,8 @@ export default interface Action {
     time?: Date,
     planned: Date,
     drug: string,
+    dose: number,
+    doseUnits: string,
     administrationType: string,
     doubleCheck?: boolean,
     comment?: string

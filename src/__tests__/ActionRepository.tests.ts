@@ -21,6 +21,8 @@ describe("ActionRepository.pushAction", () => {
             folderId: "Some folder id",
             patient: 123456,
             drug: "Paracetamol",
+            dose: 100,
+            doseUnits: "mg",
             administrationType: "Per os",
             planned: new Date(2022, 1, 1),
             comment: "Test action",

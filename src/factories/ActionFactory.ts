@@ -22,6 +22,8 @@ export default class ActionFactory {
                     time: null,
                     planned: currentTime,
                     drug: instruction.drug,
+                    dose: instruction.dose,
+                    doseUnits: instruction.doseUnits,
                     administrationType: instruction.administrationType,
                     doubleCheck: null,
                     comment: null
